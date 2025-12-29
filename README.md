@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 OptiFlow: High-Performance DPR Optimizer
 
-## Getting Started
+OptiFlow is a cutting-edge demonstration of automated **Device Pixel Ratio (DPR)** optimization. By leveraging **Next.js 16** and **Cloudinary**, this application ensures that users receive razor-sharp visuals tailored specifically to their device's screen density, eliminating wasted bandwidth and boosting conversion rates.
 
-First, run the development server:
+## ✨ Key Features
+
+* **Automated DPR Delivery**: Uses Cloudinary's `dpr_auto` to detect screen density (1x, 2x, 3x) and serve the exact number of pixels needed.
+* **Next.js 16 Real-Time Sync**: Utilizes `router.refresh()` and `no-store` caching to update the gallery instantly after an upload without a page reload.
+* **Intelligent Compression**: Employs `f_auto` and `q_auto` to deliver the best format (AVIF/WebP) and quality balance automatically.
+* **Before/After Comparison**: A dedicated tool to visualize the payload difference between standard "heavy" images and optimized assets.
+* **Mobile-First "Squircle" UI**: A fully responsive design using the latest Shadcn UI components with custom 2rem rounded corners for a premium feel.
+
+## 🛠️ Tech Stack
+
+* **Framework**: Next.js 16.1 (App Router, Turbopack)
+* **Image Orchestration**: [Cloudinary](https://cloudinary.com) (`next-cloudinary`)
+* **Styling**: Tailwind CSS
+* **UI Components**: Shadcn UI (Latest Nova Style)
+* **Icons**: Lucide React
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/dpr-optimizer.git
+cd dpr-optimizer
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file in the root directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your_cloud_name"
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET="your_unsigned_preset"
+CLOUDINARY_API_KEY="your_api_key"
+CLOUDINARY_API_SECRET="your_api_secret"
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Install dependencies and run
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+## 📖 How it Works
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### DPR vs. Fixed Dimensions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Traditional responsive images require complex `srcset` configurations. With Cloudinary's DPR parameter, the delivery is simplified:
+
+* **Standard**: Serving a 2000px image to a 500px container on a 1x display wastes 75% of the data.
+* **OptiFlow**: Requests `dpr_auto`. A Retina MacBook (DPR 2.0) receives a 1000px image, while a standard monitor receives exactly 500px.
+
+### Server-Side Integration
+
+The project uses a Next.js API route to interface with the Cloudinary Admin API, allowing us to display live metadata, including the original file size versus the optimized delivery weight.
+
+## 📈 Impact on Profit
+
+Reducing image weight is directly correlated with:
+
+* **Faster LCP (Largest Contentful Paint)**: Higher SEO rankings.
+* **Reduced Bounce Rates**: Especially for mobile users on limited data plans.
+* **Higher Conversions**: A 100ms improvement in load time can result in a 1% increase in revenue.
